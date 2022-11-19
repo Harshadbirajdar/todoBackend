@@ -20,6 +20,6 @@ router.route("/todo").get(getAllTodos).post(createTodo);
 
 router.route("/todo/:id").get(getTodoById).delete(deleteTodo);
 
-router.route("/todo/task/:id").post(addTask).delete(deleteTask);
+router.route("/todo/task/:id").post(addTask).put(deleteTask);
 
 module.exports = router;

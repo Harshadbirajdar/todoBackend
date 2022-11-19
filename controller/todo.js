@@ -40,13 +40,14 @@ exports.addTask = BigPromise(async (req, res, next) => {
   const { tasks } = req.body;
   const { id } = req.params;
 
+  if (!tasks) return next(new Error("Please provide task"));
   const todo = await Todo.findByIdAndUpdate(
     id,
     { $addToSet: { tasks } },
     { new: true }
   );
-
-  return commonResponse(res, 200, "Todo updated successfully", todo);
+  if (!todo) return next(new Error("Todo Not found"));
+  return commonResponse(res, 200, "Task added sucessfully", todo);
 });
 
 exports.deleteTask = BigPromise(async (req, res, next) => {
