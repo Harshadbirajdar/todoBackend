@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan("tiny"));
 
+const todo = require("./route/todo");
+
+app.use("/api/v1", todo);
+
 app.use(notFound);
 app.use(errorHandler);
 
