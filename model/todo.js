@@ -7,7 +7,19 @@ const todoSchema = new mongoose.Schema(
       required: [true, "Please provide a title"],
       maxlength: [40, "Title should be under 40 characters"],
     },
-    tasks: [String],
+    tasks: [
+      {
+        title: String,
+        isCompleted: {
+          type: Boolean,
+          default: false,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

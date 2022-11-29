@@ -37,13 +37,13 @@ exports.getTodoById = BigPromise(async (req, res, next) => {
 });
 
 exports.addTask = BigPromise(async (req, res, next) => {
-  const { tasks } = req.body;
+  const { title } = req.body;
   const { id } = req.params;
 
-  if (!tasks) return next(new Error("Please provide task"));
+  if (!title) return next(new Error("Please provide task"));
   const todo = await Todo.findByIdAndUpdate(
     id,
-    { $addToSet: { tasks } },
+    { $addToSet: { tasks: { title } } },
     { new: true }
   );
   if (!todo) return next(new Error("Todo Not found"));
@@ -79,3 +79,17 @@ exports.deleteTodo = BigPromise(async (req, res, next) => {
 
   return commonResponse(res, 200, "Todo deleted successfully", todo);
 });
+
+exports.updateTitle = BigPromise(async (req, res, next) => {
+  const { title } = req.body;
+  const { id } = req.params;
+  if (!title) return next(new Error("Please provide the title"));
+
+  const todo = await Todo.findByIdAndUpdate(id, { title }, { new: true });
+
+  if (!todo) return next(new Error("Todo Not Found"));
+
+  return commonResponse(res, 200, "Title updated successfully", todo);
+});
+
+exports.searchTask = BigPromise(async (req, res, next) => {});
