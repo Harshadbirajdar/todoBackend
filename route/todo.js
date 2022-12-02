@@ -6,6 +6,7 @@ const {
   addTask,
   deleteTask,
   deleteTodo,
+  updateTitle,
 } = require("../controller/todo");
 
 const router = express.Router();
@@ -18,7 +19,7 @@ router.route("/").get((req, res) => {
 
 router.route("/todo").get(getAllTodos).post(createTodo);
 
-router.route("/todo/:id").get(getTodoById).delete(deleteTodo);
+router.route("/todo/:id").get(getTodoById).delete(deleteTodo).put(updateTitle);
 
 router.route("/todo/task/:id").post(addTask).put(deleteTask);
 
